@@ -8,3 +8,17 @@ build/
 *.ipa
 *.dSYM.zip
 *.dSYM
+
+# Secrets. A bare `.env` line does not cover `.env.bak-*`, `.env.local` or
+# `.env.production`; a rotation script's timestamped backup was staged into a
+# sibling repo by exactly that gap.
+.env
+.env.*
+
+# Credential-shaped files. Nothing of this shape is tracked in any weirdapps
+# repo today, and these two lines are what keeps it that way: a stray
+# `cp ~/keys/whatever.pem .` is otherwise one `git add -A` away from a commit,
+# and on a private repo nothing server-side would catch it. A global ignore is
+# not a substitute, because no clone and no CI runner ever reads one.
+*.pem
+*.key
