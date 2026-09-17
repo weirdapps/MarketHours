@@ -1,0 +1,353 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		842308EF149398322A074946 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2C5FB27799A08A346B2F277 /* Assets.xcassets */; };
+		9F4960567CD3102674B66494 /* Market.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C930B9B51AE86AD711308FC /* Market.swift */; };
+		A932710F0CCAA9535A85C319 /* MarketClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC76309B27CF491CC3E70C5 /* MarketClock.swift */; };
+		DC776CB00D665ACC2751C74D /* MarketHoursApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DEBA69FB67F78787EBDFA5 /* MarketHoursApp.swift */; };
+		ED7DE1362865D816300287FE /* MarketPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6426D8E98F1B0AC871F79B /* MarketPanelView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2A8B4181B9ACA20D3CBF9EC3 /* MarketHours.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarketHours.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3C930B9B51AE86AD711308FC /* Market.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Market.swift; sourceTree = "<group>"; };
+		A0DEBA69FB67F78787EBDFA5 /* MarketHoursApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketHoursApp.swift; sourceTree = "<group>"; };
+		C08EEE8AF3704CCE613C9D9D /* MarketHours.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MarketHours.entitlements; sourceTree = "<group>"; };
+		CFC76309B27CF491CC3E70C5 /* MarketClock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketClock.swift; sourceTree = "<group>"; };
+		DD6426D8E98F1B0AC871F79B /* MarketPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketPanelView.swift; sourceTree = "<group>"; };
+		E2C5FB27799A08A346B2F277 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		20D9D9121215E42BC0882E72 /* MarketHours */ = {
+			isa = PBXGroup;
+			children = (
+				E2C5FB27799A08A346B2F277 /* Assets.xcassets */,
+				C08EEE8AF3704CCE613C9D9D /* MarketHours.entitlements */,
+				A0DEBA69FB67F78787EBDFA5 /* MarketHoursApp.swift */,
+				D929DEE988AA41E30763CC34 /* Models */,
+				94CAF3C8993E3BF599CB4732 /* Services */,
+				3E9410C16ACCDD6EA82684DF /* Views */,
+			);
+			path = MarketHours;
+			sourceTree = "<group>";
+		};
+		3E9410C16ACCDD6EA82684DF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DD6426D8E98F1B0AC871F79B /* MarketPanelView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4A6D64C4772323EAA48D1DCE = {
+			isa = PBXGroup;
+			children = (
+				20D9D9121215E42BC0882E72 /* MarketHours */,
+				F0E31D05930154C4A16E042D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		94CAF3C8993E3BF599CB4732 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				CFC76309B27CF491CC3E70C5 /* MarketClock.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		D929DEE988AA41E30763CC34 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3C930B9B51AE86AD711308FC /* Market.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		F0E31D05930154C4A16E042D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2A8B4181B9ACA20D3CBF9EC3 /* MarketHours.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		848EF707776C62B34AFEFAA3 /* MarketHours */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C1B0AC5E7F90986186708888 /* Build configuration list for PBXNativeTarget "MarketHours" */;
+			buildPhases = (
+				E5F1DFB8CE085D5F0F858FE4 /* Sources */,
+				034F4004E4A5B42218BC0BD0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MarketHours;
+			packageProductDependencies = (
+			);
+			productName = MarketHours;
+			productReference = 2A8B4181B9ACA20D3CBF9EC3 /* MarketHours.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C43710E0721AA509C8B2C455 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = F221FC526A8E30A4A347F2BA /* Build configuration list for PBXProject "MarketHours" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 4A6D64C4772323EAA48D1DCE;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = F0E31D05930154C4A16E042D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				848EF707776C62B34AFEFAA3 /* MarketHours */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		034F4004E4A5B42218BC0BD0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				842308EF149398322A074946 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E5F1DFB8CE085D5F0F858FE4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9F4960567CD3102674B66494 /* Market.swift in Sources */,
+				A932710F0CCAA9535A85C319 /* MarketClock.swift in Sources */,
+				DC776CB00D665ACC2751C74D /* MarketHoursApp.swift in Sources */,
+				ED7DE1362865D816300287FE /* MarketPanelView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		0EC4F57D85765D86CAC9124F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGNING_ALLOWED = YES;
+				CODE_SIGN_ENTITLEMENTS = MarketHours/MarketHours.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MarketHours/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Market Hours";
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.weirdapps.MarketHours;
+				PRODUCT_NAME = MarketHours;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		37AD5E28117D77396DB775E7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGNING_ALLOWED = YES;
+				CODE_SIGN_ENTITLEMENTS = MarketHours/MarketHours.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MarketHours/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Market Hours";
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.weirdapps.MarketHours;
+				PRODUCT_NAME = MarketHours;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		95FCA631983DEFE2A061FACB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		B3A3CEB7666D54256C514854 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C1B0AC5E7F90986186708888 /* Build configuration list for PBXNativeTarget "MarketHours" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				37AD5E28117D77396DB775E7 /* Debug */,
+				0EC4F57D85765D86CAC9124F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F221FC526A8E30A4A347F2BA /* Build configuration list for PBXProject "MarketHours" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B3A3CEB7666D54256C514854 /* Debug */,
+				95FCA631983DEFE2A061FACB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C43710E0721AA509C8B2C455 /* Project object */;
+}
