@@ -10,6 +10,7 @@ import UserNotifications
 final class AlertScheduler: NSObject, UNUserNotificationCenterDelegate {
     private(set) var authorization: UNAuthorizationStatus = .notDetermined
     @ObservationIgnored private var generation = 0
+    @ObservationIgnored private var queue: Task<Void, Never>?
 
     override init() {
         super.init()
@@ -21,20 +22,28 @@ final class AlertScheduler: NSObject, UNUserNotificationCenterDelegate {
         authorization = await Self.currentAuthorization()
     }
 
+    /// Runs one replacement at a time. A run that a newer plan has overtaken stops, and the
+    /// newer run, queued behind it, clears whatever it had already added.
     func replacePending(with plan: [PlannedAlert]) {
         generation += 1
         let run = generation
-        Task {
+        let previous = queue
+        queue = Task {
+            await previous?.value
+            guard run == generation else { return }
             let center = UNUserNotificationCenter.current()
             let ours = await Self.pendingIdentifiers().filter { $0.hasPrefix("markethours.") }
             center.removePendingNotificationRequests(withIdentifiers: ours)
             guard !plan.isEmpty else { return }
+            // Re-read every run: the user may have changed it in System Settings.
+            await refreshAuthorization()
             if authorization == .notDetermined {
                 _ = try? await center.requestAuthorization(options: [.alert, .sound])
                 await refreshAuthorization()
             }
-            guard run == generation, authorization == .authorized || authorization == .provisional else { return }
+            guard authorization == .authorized || authorization == .provisional else { return }
             for alert in plan {
+                guard run == generation else { return }
                 let content = UNMutableNotificationContent()
                 content.title = alert.title
                 content.body = alert.body

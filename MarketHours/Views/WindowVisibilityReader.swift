@@ -25,7 +25,8 @@ struct WindowVisibilityReader: NSViewRepresentable {
             observers.forEach { NotificationCenter.default.removeObserver($0) }
             observers = []
             guard let window else {
-                onChange?(false, nil)
+                // Report after SwiftUI finishes its update, not in the middle of it.
+                Task { @MainActor [weak self] in self?.onChange?(false, nil) }
                 return
             }
             let names: [Notification.Name] = [
@@ -39,7 +40,7 @@ struct WindowVisibilityReader: NSViewRepresentable {
                     MainActor.assumeIsolated { self?.report(closing: closing) }
                 })
             }
-            report(closing: false)
+            Task { @MainActor [weak self] in self?.report(closing: false) }
         }
 
         private func report(closing: Bool) {

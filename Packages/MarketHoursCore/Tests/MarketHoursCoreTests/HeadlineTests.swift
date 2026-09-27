@@ -22,6 +22,21 @@ import Testing
         #expect(Headline.pick(from: schedules, at: lateAfternoon, pinned: "nowhere")?.market.id == "ny")
     }
 
+    @Test func autoSkipsHiddenMarkets() {
+        // New York would be first; hidden, Athens closing at 14:20Z beats London's 15:30Z.
+        let headline = Headline.pick(from: schedules, at: lateAfternoon, pinned: nil, hidden: ["ny"])
+        #expect(headline?.market.id == "athens")
+    }
+
+    @Test func pinnedMarketShowsEvenWhenHidden() {
+        #expect(Headline.pick(from: schedules, at: lateAfternoon, pinned: "ny", hidden: ["ny"])?.market.id == "ny")
+    }
+
+    @Test func nothingToShowWhenEveryMarketIsHidden() {
+        let everything = Set(Market.all.map(\.id))
+        #expect(Headline.pick(from: schedules, at: lateAfternoon, pinned: nil, hidden: everything) == nil)
+    }
+
     @Test func simultaneousEventsGoToTheEarlierMarketInTheList() {
         // London and Frankfurt both close at 15:30Z.
         #expect(Headline.pick(from: schedules, at: utc("2026-09-28T15:10:00Z"), pinned: nil)?.market.id == "london")

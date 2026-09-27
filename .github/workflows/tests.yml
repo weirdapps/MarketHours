@@ -1,8 +1,8 @@
 name: Tests
 
-# The schedule logic in Packages/MarketHoursCore is plain Foundation, so its tests run on
-# Linux, which costs a tenth of a macOS runner minute. The AppKit/SwiftUI app target is not
-# built here; build and launch it locally (see CLAUDE.md).
+# The schedule logic in Packages/MarketHoursCore is plain Foundation, so its
+# tests run on Linux, at a tenth of the cost of a macOS runner minute. The
+# AppKit/SwiftUI app target is not built here; build and launch it locally.
 
 "on":
   push:
@@ -25,8 +25,11 @@ jobs:
     container: swift:6.1
     timeout-minutes: 15
     steps:
+      # yamllint disable-line rule:line-length
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
       - name: Install time zone data
-        run: apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get install -y -qq tzdata
+        run: |
+          apt-get update -qq
+          DEBIAN_FRONTEND=noninteractive apt-get install -y -qq tzdata
       - name: swift test
         run: swift test --package-path Packages/MarketHoursCore

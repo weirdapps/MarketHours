@@ -7,28 +7,35 @@ import Observation
 final class Settings {
     /// Markets hidden from the panel and from the menu bar's automatic pick.
     var hiddenMarketIDs: Set<String> {
-        didSet { save(Array(hiddenMarketIDs).sorted(), Key.hidden) }
+        didSet { save(Array(hiddenMarketIDs).sorted(), Key.hidden, .shownMarkets) }
     }
 
     /// Markets that post a notification before they open and close.
     var alertMarketIDs: Set<String> {
-        didSet { save(Array(alertMarketIDs).sorted(), Key.alerts) }
+        didSet { save(Array(alertMarketIDs).sorted(), Key.alerts, .alerts) }
     }
 
     /// The market the menu bar always counts down to; nil picks the next event anywhere.
     var pinnedMarketID: String? {
-        didSet { save(pinnedMarketID, Key.pinned) }
+        didSet { save(pinnedMarketID, Key.pinned, .pinnedMarket) }
     }
 
     var menuBarShowsSeconds: Bool {
-        didSet { save(menuBarShowsSeconds, Key.seconds) }
+        didSet { save(menuBarShowsSeconds, Key.seconds, .seconds) }
     }
 
     var alertLeadMinutes: Int {
-        didSet { save(alertLeadMinutes, Key.lead) }
+        didSet { save(alertLeadMinutes, Key.lead, .alerts) }
     }
 
-    @ObservationIgnored var onChange: (@MainActor () -> Void)?
+    enum Change {
+        case shownMarkets
+        case pinnedMarket
+        case seconds
+        case alerts
+    }
+
+    @ObservationIgnored var onChange: (@MainActor (Change) -> Void)?
     @ObservationIgnored private let defaults: UserDefaults
 
     init(defaults: UserDefaults = .standard) {
@@ -41,9 +48,9 @@ final class Settings {
         alertLeadMinutes = lead > 0 ? lead : 15
     }
 
-    private func save(_ value: Any?, _ key: String) {
+    private func save(_ value: Any?, _ key: String, _ change: Change) {
         defaults.set(value, forKey: key)
-        onChange?()
+        onChange?(change)
     }
 
     private enum Key {

@@ -73,7 +73,7 @@ Once a year, or when an exchange changes its hours:
 uv run scripts/generate_sessions.py
 ```
 
-This regenerates `Packages/MarketHoursCore/Sources/MarketHoursCore/Resources/sessions.json` and the oracle sample. It exits non-zero if the file does not reproduce every exchange_calendars session, or if an exchange's regular hours no longer match the app's table in `Market.swift`. Commit both files, then run the tests.
+This regenerates `Packages/MarketHoursCore/Sources/MarketHoursCore/Resources/sessions.json` and the oracle sample. It exits non-zero if the file does not reproduce every exchange_calendars session, or if an exchange's regular hours no longer match the hours the app shows. The script keeps its own copy of those hours (`APP_HOURS`); the Swift test `appHoursMatchTheCalendarExceptTheAthensOpen` checks `Market.swift` against the same data, so changing one copy without the other fails loudly. Commit both files, then run the tests.
 
 ## Icon
 

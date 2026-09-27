@@ -152,7 +152,11 @@ public struct MarketSchedule: Sendable {
 
     /// The session in progress, or else the one the next open starts.
     public func displayedSession(at date: Date) -> DateInterval? {
-        let status = status(at: date)
+        displayedSession(for: status(at: date))
+    }
+
+    /// Same, from a status the caller already has.
+    public func displayedSession(for status: MarketStatus) -> DateInterval? {
         if let session = status.session { return session }
         guard status.next.kind == .open else { return nil }
         let day = localDay(containing: status.next.date)
@@ -164,8 +168,15 @@ public struct MarketSchedule: Sendable {
 
     /// "16:30-23:00": the displayed session in the viewer's time zone.
     public func sessionRangeText(at date: Date, in viewer: TimeZone) -> String {
-        guard let session = displayedSession(at: date) else { return "" }
-        return clockText(session.start, in: viewer) + "-" + clockText(session.end, in: viewer)
+        sessionRangeText(for: status(at: date), in: viewer)
+    }
+
+    /// Same, from a status the caller already has.
+    public func sessionRangeText(for status: MarketStatus, in viewer: TimeZone) -> String {
+        guard let session = displayedSession(for: status) else { return "" }
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = viewer
+        return clockText(session.start, calendar: calendar) + "-" + clockText(session.end, calendar: calendar)
     }
 
     /// "09:45:12": the exchange's own wall clock, seconds truncated.
@@ -283,6 +294,10 @@ extension MarketSchedule.LocalDay {
 func clockText(_ date: Date, in zone: TimeZone) -> String {
     var calendar = Calendar(identifier: .gregorian)
     calendar.timeZone = zone
+    return clockText(date, calendar: calendar)
+}
+
+func clockText(_ date: Date, calendar: Calendar) -> String {
     let parts = calendar.dateComponents([.hour, .minute], from: date)
     return twoDigits(parts.hour ?? 0) + ":" + twoDigits(parts.minute ?? 0)
 }

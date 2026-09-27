@@ -29,8 +29,12 @@ sanitized PATH. Call it through `zsh -lc` or by absolute path before believing "
   with the code under test.
 - **`sessions.json` is generated.** Never hand-edit it: rerun `uv run scripts/generate_sessions.py`,
   which also rewrites the oracle fixture and fails if the data does not reproduce every
-  exchange_calendars session or if a calendar's regular hours drift from `Market.swift`.
-  Coverage ends 2028-12-31; the app warns 60 days ahead and falls back to weekdays after.
+  exchange_calendars session. Coverage ends 2028-12-31; the app warns 60 days ahead and
+  falls back to weekdays after.
+- **The app's hours live in two places on purpose**: `Market.swift` and `APP_HOURS` in
+  `scripts/generate_sessions.py`. The generator checks its copy against exchange_calendars,
+  `BundledDataTests.appHoursMatchTheCalendarExceptTheAthensOpen` checks the Swift one, so
+  changing one without the other fails loudly. Change both.
 - **Athens differs from exchange_calendars on purpose**: the app opens ASEX at 10:30
   (continuous trading), the calendar at 10:00. The generator and the tests both allow for
   exactly that difference and nothing else.

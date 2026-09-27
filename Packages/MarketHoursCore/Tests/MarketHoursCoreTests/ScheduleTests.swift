@@ -107,6 +107,14 @@ import Testing
         #expect(schedule("ny").sessionRangeText(at: morning, in: athensTime) == "16:30-23:00")
     }
 
+    @Test func takesAStatusTheCallerAlreadyHas() {
+        let newYork = schedule("ny")
+        let morning = utc("2026-09-28T10:00:00Z")
+        #expect(newYork.sessionRangeText(for: newYork.status(at: morning), in: athensTime) == "16:30-23:00")
+        let open = utc("2026-09-28T15:00:00Z")
+        #expect(newYork.sessionRangeText(for: newYork.status(at: open), in: athensTime) == "16:30-23:00")
+    }
+
     @Test func showsTheNextSessionOnceTodaysHasEnded() {
         let afterTokyoClose = utc("2026-09-28T10:00:00Z")
         #expect(schedule("tokyo").sessionRangeText(at: afterTokyoClose, in: athensTime) == "03:00-09:30")

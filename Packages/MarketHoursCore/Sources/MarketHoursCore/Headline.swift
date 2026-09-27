@@ -5,14 +5,17 @@ public struct Headline: Equatable, Sendable {
     public let market: Market
     public let event: MarketEvent
 
-    /// The pinned market's next event, or else the soonest event of any kind across
-    /// `schedules`. Simultaneous events go to the market listed first.
-    public static func pick(from schedules: [MarketSchedule], at date: Date, pinned: String?) -> Headline? {
+    /// The pinned market's next event, even if that market is hidden; otherwise the soonest
+    /// event of any kind among the markets not hidden, or nil when every one is hidden.
+    /// Simultaneous events go to the market listed first.
+    public static func pick(
+        from schedules: [MarketSchedule], at date: Date, pinned: String?, hidden: Set<String> = []
+    ) -> Headline? {
         if let pinned, let schedule = schedules.first(where: { $0.market.id == pinned }) {
             return Headline(market: schedule.market, event: schedule.status(at: date).next)
         }
         var best: Headline?
-        for schedule in schedules {
+        for schedule in schedules where !hidden.contains(schedule.market.id) {
             let event = schedule.status(at: date).next
             if best.map({ event.date < $0.event.date }) ?? true {
                 best = Headline(market: schedule.market, event: event)

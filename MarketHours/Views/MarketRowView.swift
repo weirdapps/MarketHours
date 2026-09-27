@@ -29,7 +29,7 @@ struct MarketRowView: View {
                     .font(.system(.subheadline, design: .rounded).weight(.medium))
                     .monospacedDigit()
                 Spacer(minLength: 4)
-                Text(schedule.sessionRangeText(at: now, in: viewer))
+                Text(schedule.sessionRangeText(for: status, in: viewer))
                     .font(.caption)
                     .foregroundStyle(.secondary)
                     .monospacedDigit()

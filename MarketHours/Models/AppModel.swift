@@ -33,7 +33,7 @@ final class AppModel {
         let data = SessionData.bundled
         sessionData = data
         schedules = Market.all.map { data?.schedule(for: $0) ?? MarketSchedule(market: $0) }
-        settings.onChange = { [weak self] in self?.settingsChanged() }
+        settings.onChange = { [weak self] in self?.settingsChanged($0) }
         startMenuTicker()
         refreshMenuBar()
         rescheduleAlerts()
@@ -84,6 +84,7 @@ final class AppModel {
         panelTicker = nil
         guard visible else { return }
         panelNow = Date()
+        Task { await alerts.refreshAuthorization() }
         panelTicker = AlignedTicker(interval: 1, tolerance: 0.05) { [weak self] in
             self?.panelTick()
         }
@@ -100,22 +101,17 @@ final class AppModel {
 
     // MARK: - Menu bar
 
+    /// With every market hidden and none pinned, the label is the chart icon alone.
     func refreshMenuBar() {
         let now = Date()
-        let headline: Headline?
-        if let pinned = settings.pinnedMarketID, let schedule = schedules.first(where: { $0.market.id == pinned }) {
-            headline = Headline.pick(from: [schedule], at: now, pinned: pinned)
-        } else {
-            let candidates = visibleSchedules
-            headline = Headline.pick(from: candidates.isEmpty ? schedules : candidates, at: now, pinned: nil)
-        }
-        guard let headline else { return }
-        let text = headline.menuBarText(at: now, showSeconds: settings.menuBarShowsSeconds)
-        if text != menuBarText {
+        let headline = Headline.pick(
+            from: schedules, at: now, pinned: settings.pinnedMarketID, hidden: settings.hiddenMarketIDs)
+        let text = headline?.menuBarText(at: now, showSeconds: settings.menuBarShowsSeconds) ?? ""
+        if text != menuBarText || menuBarImage.size == .zero {
             menuBarText = text
             menuBarImage = MenuBarLabelRenderer.image(for: text)
         }
-        let spoken = headline.accessibilityText(at: now)
+        let spoken = headline?.accessibilityText(at: now) ?? "Market Hours"
         if spoken != menuBarAccessibilityText {
             menuBarAccessibilityText = spoken
         }
@@ -131,7 +127,8 @@ final class AppModel {
 
     private func menuTick() {
         refreshMenuBar()
-        if Date().timeIntervalSince(alertsPlannedAt) >= 3_600 {
+        // Roll the three-day alert horizon forward once an hour.
+        if !settings.alertMarketIDs.isEmpty, Date().timeIntervalSince(alertsPlannedAt) >= 3_600 {
             rescheduleAlerts()
         }
     }
@@ -150,10 +147,16 @@ final class AppModel {
 
     // MARK: - Changes
 
-    private func settingsChanged() {
-        startMenuTicker()
-        refreshMenuBar()
-        rescheduleAlerts()
+    private func settingsChanged(_ change: Settings.Change) {
+        switch change {
+        case .seconds:
+            startMenuTicker()
+            refreshMenuBar()
+        case .shownMarkets, .pinnedMarket:
+            refreshMenuBar()
+        case .alerts:
+            rescheduleAlerts()
+        }
     }
 
     private func observeSystemEvents() {

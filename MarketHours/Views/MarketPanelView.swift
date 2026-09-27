@@ -14,10 +14,12 @@ struct MarketPanelView: View {
         VStack(spacing: 0) {
             header
             Divider().opacity(0.35)
-            if showingSettings {
-                SettingsView(model: model, settings: model.settings)
-            } else {
-                MarketListView(model: model)
+            CappedScrollView(maxHeight: Self.maxContentHeight) {
+                if showingSettings {
+                    SettingsView(model: model, settings: model.settings)
+                } else {
+                    MarketListView(model: model)
+                }
             }
             Divider().opacity(0.35)
             footer
@@ -26,6 +28,11 @@ struct MarketPanelView: View {
         .background(WindowVisibilityReader { model.setPanelVisible($0, window: $1) })
         .onAppear { model.setPanelVisible(true, window: nil) }
         .onDisappear { model.setPanelVisible(false, window: nil) }
+    }
+
+    /// Screen height less room for the header, footer and menu bar.
+    private static var maxContentHeight: CGFloat {
+        (NSScreen.main?.visibleFrame.height ?? 800) - 150
     }
 
     private var header: some View {
@@ -112,5 +119,35 @@ struct MarketListView: View {
             }
         }
         .padding(12)
+    }
+}
+
+/// Takes its content's height up to `maxHeight`, then scrolls. MenuBarExtra sizes its
+/// window to the content, so the panel stays compact on a tall screen and cannot run
+/// off a short one.
+struct CappedScrollView<Content: View>: View {
+    let maxHeight: CGFloat
+    @ViewBuilder let content: Content
+    @State private var contentHeight: CGFloat = 0
+
+    var body: some View {
+        ScrollView {
+            content
+                .background(GeometryReader { geometry in
+                    Color.clear.preference(key: ContentHeightKey.self, value: geometry.size.height)
+                })
+        }
+        .frame(height: min(max(contentHeight, 1), maxHeight))
+        .onPreferenceChange(ContentHeightKey.self) { height in
+            Task { @MainActor in contentHeight = height }
+        }
+    }
+}
+
+private struct ContentHeightKey: PreferenceKey {
+    static let defaultValue: CGFloat = 0
+
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = max(value, nextValue())
     }
 }
