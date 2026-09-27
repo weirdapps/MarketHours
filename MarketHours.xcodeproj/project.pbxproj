@@ -7,22 +7,51 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		278F80238CA69CBE1F19DFA2 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0CA88A7FB5D365FDB86ECF /* AppModel.swift */; };
+		45E24DAB42D91E1C0B79203A /* DebugHooks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22ECE0FC08A69B63E93F354E /* DebugHooks.swift */; };
+		78FED27937D9852A47012004 /* AlertScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613A32BE893C381C949A4090 /* AlertScheduler.swift */; };
+		7DCA7C0B47E82FFCE00B6F5C /* WindowVisibilityReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B05DA06BC6099900CB85C4 /* WindowVisibilityReader.swift */; };
+		7EBD50C11671726322E8EC60 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28543ED6B98C281A2AAAA5F /* Settings.swift */; };
 		842308EF149398322A074946 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2C5FB27799A08A346B2F277 /* Assets.xcassets */; };
-		9F4960567CD3102674B66494 /* Market.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C930B9B51AE86AD711308FC /* Market.swift */; };
-		A932710F0CCAA9535A85C319 /* MarketClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC76309B27CF491CC3E70C5 /* MarketClock.swift */; };
+		A73130B70C22050DACCB3187 /* MarketHoursCore in Frameworks */ = {isa = PBXBuildFile; productRef = 09D1138EBDAAD6C84B45AE32 /* MarketHoursCore */; };
+		A9084291D151E05C8163AEB5 /* MenuBarLabelRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0D1416B4ABCA963057CF35 /* MenuBarLabelRenderer.swift */; };
+		C6AE0B5293A06723E24DA7B9 /* AlignedTicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1F5C4595AE28472295FC4 /* AlignedTicker.swift */; };
 		DC776CB00D665ACC2751C74D /* MarketHoursApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DEBA69FB67F78787EBDFA5 /* MarketHoursApp.swift */; };
+		E2F4282903574A75A42556A1 /* LaunchAtLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F9F18A591F26C0069C0BD5 /* LaunchAtLogin.swift */; };
 		ED7DE1362865D816300287FE /* MarketPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6426D8E98F1B0AC871F79B /* MarketPanelView.swift */; };
+		F0692E4C146764C209DED668 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E167DB0BB6BD6D0A86E525B8 /* SettingsView.swift */; };
+		FF2ACDFA4841E1B28526870E /* MarketRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7ACC8F1BC82A78F527C25B2 /* MarketRowView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		13B05DA06BC6099900CB85C4 /* WindowVisibilityReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowVisibilityReader.swift; sourceTree = "<group>"; };
+		22ECE0FC08A69B63E93F354E /* DebugHooks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugHooks.swift; sourceTree = "<group>"; };
 		2A8B4181B9ACA20D3CBF9EC3 /* MarketHours.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarketHours.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		3C930B9B51AE86AD711308FC /* Market.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Market.swift; sourceTree = "<group>"; };
+		613A32BE893C381C949A4090 /* AlertScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertScheduler.swift; sourceTree = "<group>"; };
+		81C1F5C4595AE28472295FC4 /* AlignedTicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlignedTicker.swift; sourceTree = "<group>"; };
+		8C0D1416B4ABCA963057CF35 /* MenuBarLabelRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarLabelRenderer.swift; sourceTree = "<group>"; };
+		8F3894886B8D03844A9956BD /* MarketHoursCore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MarketHoursCore; path = Packages/MarketHoursCore; sourceTree = SOURCE_ROOT; };
 		A0DEBA69FB67F78787EBDFA5 /* MarketHoursApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketHoursApp.swift; sourceTree = "<group>"; };
+		A2F9F18A591F26C0069C0BD5 /* LaunchAtLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLogin.swift; sourceTree = "<group>"; };
+		B28543ED6B98C281A2AAAA5F /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		BD0CA88A7FB5D365FDB86ECF /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
 		C08EEE8AF3704CCE613C9D9D /* MarketHours.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MarketHours.entitlements; sourceTree = "<group>"; };
-		CFC76309B27CF491CC3E70C5 /* MarketClock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketClock.swift; sourceTree = "<group>"; };
 		DD6426D8E98F1B0AC871F79B /* MarketPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketPanelView.swift; sourceTree = "<group>"; };
+		E167DB0BB6BD6D0A86E525B8 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		E2C5FB27799A08A346B2F277 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F7ACC8F1BC82A78F527C25B2 /* MarketRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketRowView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F7F93D90063843920B9E6922 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A73130B70C22050DACCB3187 /* MarketHoursCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		20D9D9121215E42BC0882E72 /* MarketHours */ = {
@@ -38,10 +67,21 @@
 			path = MarketHours;
 			sourceTree = "<group>";
 		};
+		3411CB6C91B1769BB20837B3 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				8F3894886B8D03844A9956BD /* MarketHoursCore */,
+			);
+			path = Packages;
+			sourceTree = "<group>";
+		};
 		3E9410C16ACCDD6EA82684DF /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				DD6426D8E98F1B0AC871F79B /* MarketPanelView.swift */,
+				F7ACC8F1BC82A78F527C25B2 /* MarketRowView.swift */,
+				E167DB0BB6BD6D0A86E525B8 /* SettingsView.swift */,
+				13B05DA06BC6099900CB85C4 /* WindowVisibilityReader.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -50,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				20D9D9121215E42BC0882E72 /* MarketHours */,
+				3411CB6C91B1769BB20837B3 /* Packages */,
 				F0E31D05930154C4A16E042D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -57,7 +98,10 @@
 		94CAF3C8993E3BF599CB4732 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				CFC76309B27CF491CC3E70C5 /* MarketClock.swift */,
+				613A32BE893C381C949A4090 /* AlertScheduler.swift */,
+				81C1F5C4595AE28472295FC4 /* AlignedTicker.swift */,
+				A2F9F18A591F26C0069C0BD5 /* LaunchAtLogin.swift */,
+				8C0D1416B4ABCA963057CF35 /* MenuBarLabelRenderer.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -65,7 +109,9 @@
 		D929DEE988AA41E30763CC34 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				3C930B9B51AE86AD711308FC /* Market.swift */,
+				BD0CA88A7FB5D365FDB86ECF /* AppModel.swift */,
+				22ECE0FC08A69B63E93F354E /* DebugHooks.swift */,
+				B28543ED6B98C281A2AAAA5F /* Settings.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -87,6 +133,7 @@
 			buildPhases = (
 				E5F1DFB8CE085D5F0F858FE4 /* Sources */,
 				034F4004E4A5B42218BC0BD0 /* Resources */,
+				F7F93D90063843920B9E6922 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -94,6 +141,7 @@
 			);
 			name = MarketHours;
 			packageProductDependencies = (
+				09D1138EBDAAD6C84B45AE32 /* MarketHoursCore */,
 			);
 			productName = MarketHours;
 			productReference = 2A8B4181B9ACA20D3CBF9EC3 /* MarketHours.app */;
@@ -119,6 +167,9 @@
 			);
 			mainGroup = 4A6D64C4772323EAA48D1DCE;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				20B2FEF88905D127620EAEE1 /* XCLocalSwiftPackageReference "Packages/MarketHoursCore" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F0E31D05930154C4A16E042D /* Products */;
 			projectDirPath = "";
@@ -145,10 +196,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F4960567CD3102674B66494 /* Market.swift in Sources */,
-				A932710F0CCAA9535A85C319 /* MarketClock.swift in Sources */,
+				78FED27937D9852A47012004 /* AlertScheduler.swift in Sources */,
+				C6AE0B5293A06723E24DA7B9 /* AlignedTicker.swift in Sources */,
+				278F80238CA69CBE1F19DFA2 /* AppModel.swift in Sources */,
+				45E24DAB42D91E1C0B79203A /* DebugHooks.swift in Sources */,
+				E2F4282903574A75A42556A1 /* LaunchAtLogin.swift in Sources */,
 				DC776CB00D665ACC2751C74D /* MarketHoursApp.swift in Sources */,
 				ED7DE1362865D816300287FE /* MarketPanelView.swift in Sources */,
+				FF2ACDFA4841E1B28526870E /* MarketRowView.swift in Sources */,
+				A9084291D151E05C8163AEB5 /* MenuBarLabelRenderer.swift in Sources */,
+				7EBD50C11671726322E8EC60 /* Settings.swift in Sources */,
+				F0692E4C146764C209DED668 /* SettingsView.swift in Sources */,
+				7DCA7C0B47E82FFCE00B6F5C /* WindowVisibilityReader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,18 +222,18 @@
 				CODE_SIGN_ENTITLEMENTS = MarketHours/MarketHours.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MarketHours/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Market Hours";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.weirdapps.MarketHours;
 				PRODUCT_NAME = MarketHours;
 				SDKROOT = macosx;
@@ -189,18 +248,18 @@
 				CODE_SIGN_ENTITLEMENTS = MarketHours/MarketHours.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MarketHours/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Market Hours";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.weirdapps.MarketHours;
 				PRODUCT_NAME = MarketHours;
 				SDKROOT = macosx;
@@ -259,7 +318,7 @@
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 5.9;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Release;
 		};
@@ -322,7 +381,7 @@
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.9;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
 		};
@@ -348,6 +407,20 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		20B2FEF88905D127620EAEE1 /* XCLocalSwiftPackageReference "Packages/MarketHoursCore" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/MarketHoursCore;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		09D1138EBDAAD6C84B45AE32 /* MarketHoursCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MarketHoursCore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C43710E0721AA509C8B2C455 /* Project object */;
 }
