@@ -21,6 +21,14 @@ import Testing
         #expect(after.next == MarketEvent(kind: .open, date: utc("2026-11-30T14:30:00Z")))
     }
 
+    @Test func earlyCloseDayExposesItsHoursFromBeforeTheOpen() throws {
+        let newYork = try sampleSessionData().schedule(for: market("ny"))
+        let beforeOpen = newYork.status(at: utc("2026-11-27T13:00:00Z")) // 08:00 EST
+        #expect(beforeOpen.specialHours?.close == LocalTime(13, 0))
+        #expect(beforeOpen.specialHours?.open == LocalTime(9, 30))
+        #expect(newYork.status(at: utc("2026-11-30T15:00:00Z")).specialHours == nil)
+    }
+
     @Test func halfDayDropsTheLunchBreak() throws {
         let hongKong = try sampleSessionData().schedule(for: market("hongkong"))
         let status = hongKong.status(at: utc("2026-12-24T03:30:00Z")) // 11:30 HKT

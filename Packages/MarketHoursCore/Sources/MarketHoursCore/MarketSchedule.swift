@@ -42,8 +42,11 @@ public struct MarketStatus: Equatable, Sendable {
     public let closedReason: ClosedReason?
     /// The session in progress, open to close; nil while closed.
     public let session: DateInterval?
-    /// Today's session runs on non-regular hours, such as an early close.
-    public let isSpecialSession: Bool
+    /// Today's hours, exchange-local, when they are not the regular ones (an early close,
+    /// say). Set from midnight until the special session ends.
+    public let specialHours: SessionHours?
+
+    public var isSpecialSession: Bool { specialHours != nil }
 
     public func countdown(at date: Date) -> TimeInterval {
         next.date.timeIntervalSince(date)
@@ -110,13 +113,14 @@ public struct MarketSchedule: Sendable {
             reason = why
         case .session(let hours, let special):
             if let session = resolve(hours, on: today) {
+                let specialHours = special ? hours : nil
                 if date < session.open {
                     return MarketStatus(
                         phase: .closed, next: MarketEvent(kind: .open, date: session.open),
-                        closedReason: .outsideHours, session: nil, isSpecialSession: special)
+                        closedReason: .outsideHours, session: nil, specialHours: specialHours)
                 }
                 if date < session.close {
-                    return inSession(session, at: date, special: special)
+                    return inSession(session, at: date, specialHours: specialHours)
                 }
             }
             reason = .outsideHours
@@ -124,7 +128,7 @@ public struct MarketSchedule: Sendable {
         let open = nextSession(after: today)?.open ?? .distantFuture
         return MarketStatus(
             phase: .closed, next: MarketEvent(kind: .open, date: open),
-            closedReason: reason, session: nil, isSpecialSession: false)
+            closedReason: reason, session: nil, specialHours: nil)
     }
 
     /// Every open, close and break boundary in (start, end], in order.
@@ -238,17 +242,17 @@ public struct MarketSchedule: Sendable {
         return ResolvedSession(open: open, close: close, breaks: breaks)
     }
 
-    func inSession(_ session: ResolvedSession, at date: Date, special: Bool) -> MarketStatus {
+    func inSession(_ session: ResolvedSession, at date: Date, specialHours: SessionHours?) -> MarketStatus {
         let span = DateInterval(start: session.open, end: session.close)
         if let pause = session.breaks.first(where: { $0.start <= date && date < $0.end }) {
             return MarketStatus(
                 phase: .lunch, next: MarketEvent(kind: .lunchEnd, date: pause.end),
-                closedReason: nil, session: span, isSpecialSession: special)
+                closedReason: nil, session: span, specialHours: specialHours)
         }
         let next = session.breaks.first(where: { $0.start > date })
             .map { MarketEvent(kind: .lunchStart, date: $0.start) }
             ?? MarketEvent(kind: .close, date: session.close)
-        return MarketStatus(phase: .open, next: next, closedReason: nil, session: span, isSpecialSession: special)
+        return MarketStatus(phase: .open, next: next, closedReason: nil, session: span, specialHours: specialHours)
     }
 
     /// The first trading session on a day after `day`. Holidays never run for weeks,

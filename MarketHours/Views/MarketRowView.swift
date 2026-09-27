@@ -95,8 +95,10 @@ struct MarketRowView: View {
 
     private var note: String? {
         if case .holiday(let name) = status.closedReason { return name }
-        if status.isSpecialSession { return "Shortened session today" }
-        return nil
+        guard let hours = status.specialHours else { return nil }
+        if hours.close < market.regular.close { return "Early close today at \(hours.close) \(market.name) time" }
+        if market.regular.open < hours.open { return "Late open today at \(hours.open) \(market.name) time" }
+        return "Non-standard hours today"
     }
 }
 
