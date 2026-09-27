@@ -2,20 +2,14 @@ import SwiftUI
 
 @main
 struct MarketHoursApp: App {
-    @StateObject private var clock = MarketClock()
+    @State private var model = AppModel()
 
     var body: some Scene {
         MenuBarExtra {
-            MarketPanelView()
-                .environmentObject(clock)
+            MarketPanelView(model: model)
         } label: {
-            HStack(spacing: 4) {
-                Image(systemName: "chart.line.uptrend.xyaxis")
-                if !clock.menuBarSubtitle.isEmpty {
-                    Text(clock.menuBarSubtitle)
-                        .monospacedDigit()
-                }
-            }
+            Image(nsImage: model.menuBarImage)
+                .accessibilityLabel(model.menuBarAccessibilityText)
         }
         .menuBarExtraStyle(.window)
     }

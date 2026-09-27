@@ -22,3 +22,8 @@ build/
 # not a substitute, because no clone and no CI runner ever reads one.
 *.pem
 *.key
+
+# Swift Package Manager and Python build output.
+.build/
+.swiftpm/
+__pycache__/

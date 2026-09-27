@@ -1,29 +1,38 @@
 import AppKit
+import MarketHoursCore
 import SwiftUI
 
 struct MarketPanelView: View {
-    @EnvironmentObject private var clock: MarketClock
+    let model: AppModel
+    #if DEBUG
+    @State private var showingSettings = DebugHooks.startsInSettings
+    #else
+    @State private var showingSettings = false
+    #endif
 
     var body: some View {
         VStack(spacing: 0) {
             header
             Divider().opacity(0.35)
-            ScrollView {
-                LazyVStack(spacing: 10) {
-                    ForEach(clock.snapshots) { snapshot in
-                        MarketRowView(
-                            snapshot: snapshot,
-                            localTime: clock.formattedLocalTime(for: snapshot.market)
-                        )
-                    }
+            CappedScrollView(maxHeight: Self.maxContentHeight) {
+                if showingSettings {
+                    SettingsView(model: model, settings: model.settings)
+                } else {
+                    MarketListView(model: model)
                 }
-                .padding(14)
             }
             Divider().opacity(0.35)
             footer
         }
-        .frame(width: 340, height: 520)
-        .background(.ultraThinMaterial)
+        .frame(width: 360)
+        .background(WindowVisibilityReader { model.setPanelVisible($0, window: $1) })
+        .onAppear { model.setPanelVisible(true, window: nil) }
+        .onDisappear { model.setPanelVisible(false, window: nil) }
+    }
+
+    /// Screen height less room for the header, footer and menu bar.
+    private static var maxContentHeight: CGFloat {
+        (NSScreen.main?.visibleFrame.height ?? 800) - 150
     }
 
     private var header: some View {
@@ -45,25 +54,37 @@ struct MarketPanelView: View {
             VStack(alignment: .leading, spacing: 1) {
                 Text("Market Hours")
                     .font(.headline)
-                Text("Major equity sessions")
+                Text(showingSettings ? "Settings" : "Sessions in \(model.viewerCity) time")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
             Spacer()
+            Button {
+                showingSettings.toggle()
+            } label: {
+                Image(systemName: showingSettings ? "checkmark.circle.fill" : "gearshape")
+                    .font(.system(size: 15))
+                    .foregroundStyle(.secondary)
+            }
+            .buttonStyle(.plain)
+            .keyboardShortcut(",", modifiers: .command)
+            .help(showingSettings ? "Done" : "Settings (⌘,)")
+            .accessibilityLabel(showingSettings ? "Done" : "Settings")
         }
         .padding(.horizontal, 14)
-        .padding(.vertical, 12)
+        .padding(.vertical, 10)
     }
 
     private var footer: some View {
         HStack {
-            Text("Weekends closed · local sessions")
+            Text(model.holidayDataSummary)
                 .font(.caption2)
-                .foregroundStyle(.tertiary)
+                .foregroundStyle(model.holidayDataEndsSoon ? AnyShapeStyle(.orange) : AnyShapeStyle(.tertiary))
             Spacer()
             Button("Quit") {
                 NSApplication.shared.terminate(nil)
             }
+            .keyboardShortcut("q", modifiers: .command)
             .buttonStyle(.plain)
             .font(.caption)
             .foregroundStyle(.secondary)
@@ -72,80 +93,61 @@ struct MarketPanelView: View {
             .background(Color.primary.opacity(0.06), in: Capsule())
         }
         .padding(.horizontal, 14)
-        .padding(.vertical, 10)
+        .padding(.vertical, 8)
     }
 }
 
-struct MarketRowView: View {
-    let snapshot: MarketSnapshot
-    let localTime: String
-
-    private var isOpen: Bool { snapshot.status == .open }
+/// Visible markets, soonest event first.
+struct MarketListView: View {
+    let model: AppModel
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack(alignment: .firstTextBaseline) {
-                Text(snapshot.market.flag)
-                    .font(.title3)
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(snapshot.market.name)
-                        .font(.system(.body, design: .rounded).weight(.semibold))
-                    Text(localTime)
-                        .font(.system(.caption, design: .monospaced))
-                        .foregroundStyle(.secondary)
-                }
-                Spacer()
-                statusBadge
+        let now = model.panelNow
+        let viewer = TimeZone.autoupdatingCurrent
+        let rows = model.visibleSchedules.enumerated()
+            .map { (order: $0.offset, schedule: $0.element, status: $0.element.status(at: now)) }
+            .sorted { ($0.status.next.date, $0.order) < ($1.status.next.date, $1.order) }
+        VStack(spacing: 6) {
+            if rows.isEmpty {
+                Text("No markets selected. Choose some in Settings.")
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+                    .padding(.vertical, 24)
             }
-
-            HStack {
-                Image(systemName: isOpen ? "arrow.down.right.circle.fill" : "arrow.up.right.circle.fill")
-                    .foregroundStyle(isOpen ? Color.orange : Color.green)
-                Text(snapshot.countdownLabel)
-                    .font(.system(.subheadline, design: .rounded).weight(.medium))
-                    .monospacedDigit()
-                Spacer()
-            }
-
-            if let progress = snapshot.sessionProgress {
-                GeometryReader { geo in
-                    ZStack(alignment: .leading) {
-                        Capsule()
-                            .fill(Color.primary.opacity(0.08))
-                        Capsule()
-                            .fill(
-                                LinearGradient(
-                                    colors: [Color.accentColor, Color.cyan.opacity(0.8)],
-                                    startPoint: .leading,
-                                    endPoint: .trailing
-                                )
-                            )
-                            .frame(width: max(6, geo.size.width * progress))
-                    }
-                }
-                .frame(height: 5)
+            ForEach(rows, id: \.schedule.market.id) { row in
+                MarketRowView(schedule: row.schedule, status: row.status, now: now, viewer: viewer)
             }
         }
         .padding(12)
-        .background(
-            RoundedRectangle(cornerRadius: 12, style: .continuous)
-                .fill(Color.primary.opacity(0.045))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12, style: .continuous)
-                        .strokeBorder(Color.primary.opacity(0.06), lineWidth: 1)
-                )
-        )
     }
+}
 
-    private var statusBadge: some View {
-        Text(isOpen ? "Open" : "Closed")
-            .font(.caption.weight(.semibold))
-            .padding(.horizontal, 8)
-            .padding(.vertical, 4)
-            .foregroundStyle(isOpen ? Color.green : Color.secondary)
-            .background(
-                Capsule()
-                    .fill(isOpen ? Color.green.opacity(0.15) : Color.primary.opacity(0.06))
-            )
+/// Takes its content's height up to `maxHeight`, then scrolls. MenuBarExtra sizes its
+/// window to the content, so the panel stays compact on a tall screen and cannot run
+/// off a short one.
+struct CappedScrollView<Content: View>: View {
+    let maxHeight: CGFloat
+    @ViewBuilder let content: Content
+    @State private var contentHeight: CGFloat = 0
+
+    var body: some View {
+        ScrollView {
+            content
+                .background(GeometryReader { geometry in
+                    Color.clear.preference(key: ContentHeightKey.self, value: geometry.size.height)
+                })
+        }
+        .frame(height: min(max(contentHeight, 1), maxHeight))
+        .onPreferenceChange(ContentHeightKey.self) { height in
+            Task { @MainActor in contentHeight = height }
+        }
+    }
+}
+
+private struct ContentHeightKey: PreferenceKey {
+    static let defaultValue: CGFloat = 0
+
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = max(value, nextValue())
     }
 }
