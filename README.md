@@ -20,7 +20,7 @@ Holidays and early closes come from [exchange_calendars](https://github.com/gerr
 
 ## What it shows
 
-- **Menu bar:** the next event across the markets you show, as the market's flag and a countdown: `▲🇺🇸 5m` (New York opens in 5 minutes) or `▼🇬🇧 2h05m` (London closes, or breaks for lunch, in 2 h 05 m). Pin one market instead in Settings, and optionally show seconds. Digits are tabular, so the item keeps its width.
+- **Menu bar:** the next event across the markets you show, as just the market's flag and a countdown, to save space: `🇺🇸 5m` or `🇬🇧 2h05m`. The panel says whether that is an open, a close or a lunch break. Pin one market instead in Settings, and optionally show seconds. Digits are tabular, so the item keeps its width. With every market hidden, the item shows a chart icon so it stays clickable.
 - **Panel:** every shown market, soonest event first, with its local clock, a countdown, today's session in your own time zone, holidays by name, and a progress bar that turns orange in the last 15 minutes before the close.
 - **Settings** (gear icon, or ⌘, in the panel): which markets to show, the menu bar countdown, alerts, and launch at login.
 - **Alerts:** a notification 5, 10, 15 or 30 minutes before a market opens or closes. Turn them on per market with the bell icon.
