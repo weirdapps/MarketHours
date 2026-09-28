@@ -42,11 +42,11 @@ import Testing
         #expect(Headline.pick(from: schedules, at: utc("2026-09-28T15:10:00Z"), pinned: nil)?.market.id == "london")
     }
 
-    @Test func menuBarTextShowsDirectionMarketAndCountdown() throws {
+    @Test func menuBarTextShowsDirectionFlagAndCountdown() throws {
         let opening = try #require(Headline.pick(from: schedules, at: lateAfternoon, pinned: nil))
-        #expect(opening.menuBarText(at: lateAfternoon, showSeconds: false) == "▲NY 5m")
+        #expect(opening.menuBarText(at: lateAfternoon, showSeconds: false) == "▲🇺🇸 5m")
         let closing = try #require(Headline.pick(from: schedules, at: lateAfternoon, pinned: "london"))
-        #expect(closing.menuBarText(at: lateAfternoon, showSeconds: false) == "▼LON 2h05m")
+        #expect(closing.menuBarText(at: lateAfternoon, showSeconds: false) == "▼🇬🇧 2h05m")
         #expect(closing.accessibilityText(at: lateAfternoon) == "London closes in 2 hours 5 minutes")
     }
 }

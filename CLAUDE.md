@@ -38,9 +38,12 @@ sanitized PATH. Call it through `zsh -lc` or by absolute path before believing "
 - **Athens differs from exchange_calendars on purpose**: the app opens ASEX at 10:30
   (continuous trading), the calendar at 10:00. The generator and the tests both allow for
   exactly that difference and nothing else.
-- **The menu bar label is a rendered template NSImage** (`MenuBarLabelRenderer`). SwiftUI
-  ignores `.monospacedDigit()` in a MenuBarExtra label, and a Text label changed the item's
-  width every second. Do not switch it back to Text.
+- **The menu bar label is an NSImage that draws itself on demand** (`MenuBarLabelRenderer`).
+  Tabular digits, because SwiftUI ignores `.monospacedDigit()` in a MenuBarExtra label and a
+  Text label changed the item's width every second. Not a template, because a template
+  turns the flag into a solid shape; the ink is `labelColor`, resolved against the
+  appearance it is drawn in, so it follows a light or dark menu bar. Do not switch it back
+  to Text or to a template image.
 - **A closed panel must cost nothing.** The per-second clock runs only while the panel is on
   screen (`WindowVisibilityReader` plus a self-check on each tick); the menu bar updates on
   the minute. v1 burned 1.3% CPU around the clock redrawing a hidden panel. After touching
