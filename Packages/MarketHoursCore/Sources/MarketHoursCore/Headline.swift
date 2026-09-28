@@ -24,11 +24,11 @@ public struct Headline: Equatable, Sendable {
         return best
     }
 
-    /// "▲🇺🇸 5m": ▲ when trading starts or resumes, ▼ when it stops, then the market's flag.
+    /// "🇺🇸 5m": the market's flag and the countdown, nothing else, to save menu bar space.
+    /// Whether it opens or closes is in the panel and in `accessibilityText`.
     public func menuBarText(at date: Date, showSeconds: Bool) -> String {
-        let arrow = event.startsTrading ? "▲" : "▼"
         let countdown = DurationFormat.compact(event.date.timeIntervalSince(date), showSeconds: showSeconds)
-        return "\(arrow)\(market.flag) \(countdown)"
+        return "\(market.flag) \(countdown)"
     }
 
     /// "London closes in 2 hours 5 minutes".

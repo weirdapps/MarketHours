@@ -1,8 +1,10 @@
 import AppKit
 
-/// Draws the status item: the chart glyph and the countdown, with tabular digits so the
-/// item keeps its width as the countdown ticks. SwiftUI ignores .monospacedDigit() in a
+/// Draws the status item: the flag and countdown alone, with tabular digits so the item
+/// keeps its width as the countdown ticks. SwiftUI ignores .monospacedDigit() in a
 /// MenuBarExtra label, and a Text label changed width every second (108-110 pt measured).
+/// With no countdown to show (every market hidden) it draws the chart glyph instead, so
+/// there is always something to click.
 ///
 /// Not a template image, because a template would turn the flag into a solid shape. The
 /// image draws itself on demand instead, in `labelColor` resolved against the appearance it
@@ -11,20 +13,23 @@ enum MenuBarLabelRenderer {
     @MainActor
     static func image(for text: String) -> NSImage {
         let fontSize = NSFont.menuBarFont(ofSize: 0).pointSize
+        if text.isEmpty {
+            return glyphImage(fontSize: fontSize)
+        }
         let textSize = attributed(text, fontSize: fontSize).size()
-        let symbolSize = symbol(fontSize: fontSize)?.size ?? .zero
-        let gap: CGFloat = text.isEmpty ? 0 : 4
-        let size = NSSize(
-            width: ceil(symbolSize.width + gap + textSize.width),
-            height: ceil(max(textSize.height, symbolSize.height)))
+        let size = NSSize(width: ceil(textSize.width), height: ceil(textSize.height))
         let image = NSImage(size: size, flipped: false) { _ in
-            if let symbol = symbol(fontSize: fontSize) {
-                symbol.draw(in: NSRect(
-                    x: 0, y: (size.height - symbolSize.height) / 2,
-                    width: symbolSize.width, height: symbolSize.height))
-            }
-            attributed(text, fontSize: fontSize)
-                .draw(at: NSPoint(x: symbolSize.width + gap, y: (size.height - textSize.height) / 2))
+            attributed(text, fontSize: fontSize).draw(at: .zero)
+            return true
+        }
+        image.isTemplate = false
+        return image
+    }
+
+    private static func glyphImage(fontSize: CGFloat) -> NSImage {
+        let symbolSize = symbol(fontSize: fontSize)?.size ?? NSSize(width: fontSize, height: fontSize)
+        let image = NSImage(size: symbolSize, flipped: false) { rect in
+            symbol(fontSize: fontSize)?.draw(in: rect)
             return true
         }
         image.isTemplate = false
