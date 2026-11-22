@@ -78,3 +78,7 @@ This regenerates `Packages/MarketHoursCore/Sources/MarketHoursCore/Resources/ses
 ## Icon
 
 `swift scripts/make_icon.swift` redraws every size of the app icon into `MarketHours/Assets.xcassets/AppIcon.appiconset`.
+
+## License
+
+MIT, see [LICENSE](LICENSE).
